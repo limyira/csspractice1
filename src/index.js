@@ -3,8 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
-import { BrowserRouter, Routes, Route } from "react-router";
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap');
 html, body, div, span, applet, object, iframe,
