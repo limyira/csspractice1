@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/csspractice1/static/js/main.c47d6848.js",
+    "main.js": "/csspractice1/static/js/main.b43b8e25.js",
     "index.html": "/csspractice1/index.html",
-    "main.c47d6848.js.map": "/csspractice1/static/js/main.c47d6848.js.map"
+    "main.b43b8e25.js.map": "/csspractice1/static/js/main.b43b8e25.js.map"
   },
   "entrypoints": [
-    "static/js/main.c47d6848.js"
+    "static/js/main.b43b8e25.js"
   ]
 }
