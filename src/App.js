@@ -186,18 +186,16 @@ function App() {
   const { scrollY } = useScroll();
   const headerref = useRef(null);
   const boxref = useRef(null);
-  const [tlqkf, rotlqkf] = useState(false);
+  const [chageState, setChageState] = useState(false);
   const [offset, setOffset] = useState(0);
-  const onClick = () => {
-    console.log(tlqkf, offset);
-  };
+
   useEffect(() => {
     scrollY.onChange(() => {
       setOffset(headerref.current.offsetTop);
       if (scrollY.get() >= boxref.current.offsetHeight) {
-        rotlqkf(true);
+        setChageState(true);
       } else {
-        rotlqkf(false);
+        setChageState(false);
       }
     });
   }, [scrollY]);
@@ -243,8 +241,8 @@ function App() {
           recommended you don’t watch the clip if you plan on seeing the film.
         </SmallP>
       </Header>
-      <Main onClick={onClick}>
-        <NameBox Y={tlqkf} ref={headerref}>
+      <Main>
+        <NameBox Y={chageState} ref={headerref}>
           <h3>
             Currently viewing <a>everything</a> sorted by <a>random</a>.
           </h3>
