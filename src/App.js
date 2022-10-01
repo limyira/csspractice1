@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
 import { motion, useScroll } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 const Container = styled.div`
   height: fit-content;
   display: flex;
-
   @media screen and (max-width: 800px) {
     display: flex;
     flex-direction: column;
@@ -81,7 +81,6 @@ const Main = styled.div`
   display: flex;
   background-color: rgb(231, 71, 60);
   flex-direction: column;
-  margin-left: 5px;
   @media screen and (max-width: 800px) {
     width: 100%;
     display: flex;
@@ -111,9 +110,13 @@ const NameBox = styled.div`
     border-bottom: 1px solid;
     padding-bottom: 2px;
   }
+  /* ${(props) => (props.offsetY === true ? "fixed" : "static")}; */
   @media screen and (max-width: 800px) {
-    position: static;
+    position: ${(props) => (props.Y === true ? "fixed" : "static")};
+    top: ${(props) => props.Y === true && 0};
     width: 100%;
+    z-index: 5;
+
     background-color: rgb(231, 71, 60);
   }
 `;
@@ -164,8 +167,6 @@ const PosterBox = styled.div`
   image {
     overflow: hidden;
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     background-image: url("https://img.fruugo.com/product/9/75/101193759_max.jpg");
@@ -183,10 +184,27 @@ const Description = styled.div`
 
 function App() {
   const { scrollY } = useScroll();
-  console.log(scrollY);
+  const headerref = useRef(null);
+  const boxref = useRef(null);
+  const [tlqkf, rotlqkf] = useState(false);
+  const [offset, setOffset] = useState(0);
+  const onClick = () => {
+    console.log(tlqkf, offset);
+  };
+  useEffect(() => {
+    scrollY.onChange(() => {
+      setOffset(headerref.current.offsetTop);
+      if (scrollY.get() >= boxref.current.offsetHeight) {
+        rotlqkf(true);
+      } else {
+        rotlqkf(false);
+      }
+    });
+  }, [scrollY]);
+
   return (
     <Container>
-      <Header>
+      <Header ref={boxref}>
         <HeaderTitleBox>
           <span>Best</span>
           <span>Horror</span>
@@ -225,8 +243,8 @@ function App() {
           recommended you don’t watch the clip if you plan on seeing the film.
         </SmallP>
       </Header>
-      <Main>
-        <NameBox>
+      <Main onClick={onClick}>
+        <NameBox Y={tlqkf} ref={headerref}>
           <h3>
             Currently viewing <a>everything</a> sorted by <a>random</a>.
           </h3>
@@ -262,11 +280,7 @@ function App() {
             <a>Leave a Comment</a>
           </div>
         </MovieBox>
-        <NameBox>
-          <h3>
-            Currently viewing <a>everything</a> sorted by <a>random</a>.
-          </h3>
-        </NameBox>
+
         <MovieBox>
           <h1>Orphan(2009)</h1>
           <p>Directed by Jaume Collet-Serra</p>
